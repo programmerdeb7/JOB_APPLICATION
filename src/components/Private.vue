@@ -5,10 +5,11 @@
     <div v-if="dataLoadSignal">
       <div v-for="item in jobRetriveData" :key="item" @mouseover="privateHover(true)" @mouseout="privateHover(false)">
         <b-container>
-          <b-card v-if="item.company != 'govt'" id="card">
+          <b-card v-if="item.type == 'private'" id="card">
             <div id="jobTitle">{{ item.title }}</div>
             <div id="jobCompany">{{ item.company }}</div>
-            <div id="jobDeadline">{{ item.deadline }} <span id="status">Expired</span></div>
+            <div id="jobType">{{ item.type }}</div>
+            <div id="jobDeadline">{{ item.deadline }}</div>
             <div id="jobLink"><a :href="item.link" target="_blank">Link</a></div>
           </b-card>
         </b-container>
@@ -44,7 +45,7 @@ export default {
   },
   watch: {
     'jobRetriveData': function(){
-      if(this.jobRetriveData.length > 1){
+      if(this.jobRetriveData.length > 0){
         this.loader = false;
         this.dataLoadSignal = true;
       }

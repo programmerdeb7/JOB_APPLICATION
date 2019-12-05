@@ -29,7 +29,7 @@
                   id="input-2"
                   v-model="form.company"
                   required
-                  placeholder="govt"
+                  placeholder=""
                 ></b-form-input>
               </b-form-group>
 
@@ -50,7 +50,10 @@
                   placeholder=""
                 ></b-form-input>
               </b-form-group>
-
+              <b-form-group label="Job Type">
+                <b-form-radio v-model="form.jobType" name="some-radios" value="govt">GOVT</b-form-radio>
+                <b-form-radio v-model="form.jobType" name="some-radios" value="private">PRIVATE</b-form-radio>
+              </b-form-group>
               <b-button type="submit" variant="primary">ADD</b-button>
               <b-button type="reset" variant="danger">RESET</b-button>
             </b-form>
@@ -80,7 +83,8 @@ export default {
         jobTitle: '',
         company: '',
         deadline: '',
-        link: ''
+        link: '',
+        jobType: ''
       }
     }
   },
@@ -113,6 +117,7 @@ export default {
         company: this.form.company,
         deadline: this.form.deadline,
         link: this.form.link,
+        type: this.form.jobType,
         createdAt: new Date(),
       })
       .then(function(docRef){
@@ -129,7 +134,8 @@ export default {
       this.form.jobTitle = ''
       this.form.company = 'govt'
       this.form.deadline = ''
-      this.form.link = ''
+      this.form.link = '',
+      this.form.jobType = ''
     }
   },
   watch: {
