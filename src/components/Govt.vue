@@ -1,9 +1,18 @@
 <template>
   <div>
     <div class="lds-ring" v-if="loader"><span id="loaderText">Loading</span><div></div><div></div><div></div><div></div></div>
-    <br><br><br>
-    <div @mouseover="govtHover(true)" @mouseout="govtHover(false)" v-if="dataLoadSignal">
-      <h1 style="background-color: red; padding: 10px; text-align: center; color: #fff;">Development Status : In Progress</h1>
+    <br><br><br><br>
+    <div v-if="dataLoadSignal">
+      <div v-for="item in jobRetriveData" :key="item" @mouseover="govtHover(true)" @mouseout="govtHover(false)">
+        <b-container>
+          <b-card v-if="item.company == 'govt'" id="card">
+            <div id="jobTitle">{{ item.title }}</div>
+            <div id="jobCompany">{{ item.company }}</div>
+            <div id="jobDeadline">{{ item.deadline }} <span id="status">Expired</span></div>
+            <div id="jobLink"><a :href="item.link" target="_blank">Link</a></div>
+          </b-card>
+        </b-container>
+      </div>
     </div>
   </div>
 </template>
@@ -20,7 +29,7 @@ export default {
   },
   firestore(){
     return {
-      jobRetriveData: db.collection('jobs').orderBy('createdAt','asc')
+      jobRetriveData: db.collection('applied_jobs').orderBy('createdAt','asc')
     }
   },
   methods: {

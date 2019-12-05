@@ -9,5 +9,4 @@ const app = initializeApp({
 });
 
 export const db = app.firestore();
-export const comments = db.collection('comments');
-export const homePageStatus = db.collection('homePageStatus');
+export const data = db.collection('applied_jobs');

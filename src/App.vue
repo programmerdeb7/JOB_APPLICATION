@@ -122,6 +122,22 @@ h5 {
   top: 3px;
 }
 /** Navbar Design End */
+
+/** List Design Start */
+#jobTitle{
+  font-size: 18px;
+}
+#status{
+  width: 10px; 
+  height: 10px; 
+  border: 1px solid red; 
+  color: red;
+}
+#card{
+  margin-bottom: 10px;
+}
+/** List Design End */
+
 /** App Media Only */
 @media (min-width: 1200px){
 
