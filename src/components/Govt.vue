@@ -29,7 +29,7 @@ export default {
   },
   firestore(){
     return {
-      jobRetriveData: db.collection('applied_jobs').orderBy('createdAt','asc')
+      jobRetriveData: db.collection('applied_jobs').orderBy('createdAt','desc')
     }
   },
   methods: {

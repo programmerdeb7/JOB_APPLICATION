@@ -127,6 +127,9 @@ h5 {
 #jobTitle{
   font-size: 18px;
 }
+#jobCompany{
+  text-transform: capitalize;
+}
 #status{
   width: 10px; 
   height: 10px; 

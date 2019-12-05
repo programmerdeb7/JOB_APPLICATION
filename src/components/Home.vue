@@ -86,7 +86,7 @@ export default {
   },
   firestore(){
     return {
-      jobRetriveData: db.collection('applied_jobs').orderBy('createdAt','asc')
+      jobRetriveData: db.collection('applied_jobs').orderBy('createdAt','desc')
     }
   },
   computed: {
@@ -113,7 +113,7 @@ export default {
         company: this.form.company,
         deadline: this.form.deadline,
         link: this.form.link,
-        createdAt: new Date()
+        createdAt: new Date(),
       })
       .then(function(docRef){
         console.log("Document written with ID:" + docRef.id);
@@ -134,11 +134,8 @@ export default {
   },
   watch: {
     'jobRetriveData': function(){
-      if(this.jobRetriveData.length > 1){
-        this.loader = false;
-        this.dataLoadSignal = true;
-      }
-      console.log("Found");
+      this.loader = false;
+      this.dataLoadSignal = true;
     }
   }
 }
