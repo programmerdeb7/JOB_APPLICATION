@@ -7,8 +7,7 @@
         <b-container>
           <b-card v-if="item.type == 'govt'" id="card">
             <div id="jobTitle">{{ item.title }}</div>
-            <div id="jobCompany">{{ item.company }}</div>
-            <div id="jobType">{{ item.type }}</div>
+            <div id="jobCompany">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
             <div id="jobDeadline">{{ item.deadline }}</div>
             <div id="jobLink"><a :href="item.link" target="_blank">Link</a></div>
           </b-card>

@@ -126,14 +126,15 @@ export default {
       })
       .catch(function(error){
         console.error("Error adding document:" + error);
+        alert(" Upload Faild! - " + error);
       });
     },
     onReset(evt) {
       evt.preventDefault()
       // Reset our form values
-      this.form.jobTitle = ''
-      this.form.company = 'govt'
-      this.form.deadline = ''
+      this.form.jobTitle = '',
+      this.form.company = '',
+      this.form.deadline = '',
       this.form.link = '',
       this.form.jobType = ''
     }
