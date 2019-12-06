@@ -10,3 +10,4 @@ const app = initializeApp({
 
 export const db = app.firestore();
 export const data = db.collection('applied_jobs');
+export const logInfo = db.collection('logInfo');

@@ -17,27 +17,61 @@
       </b-container> 
     </b-navbar>
     <!-- Navbar End -->
-    <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover"/>
+    <!-- Log -->
+    <div id="contentSection" v-show="!this.switch">
+      <b-container>
+        <b-row>
+          <b-col offset-md="3" md="6" sm="12">
+            <b-card>
+              <div class="text-center" id="logTitle">LOG IN</div>
+              <b-form @submit="onSubmit">
+                <b-form-group>
+                  <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input id="inline-form-input-username" v-model="user" placeholder="USERNAME"></b-input>
+                  </b-input-group>
+                </b-form-group>
+                <b-form-group>
+                  <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input id="inline-form-input-username" v-model="pass" placeholder="PASSWORD" type="password"></b-input>
+                  </b-input-group>
+                </b-form-group>
+                <b-button type="submit" block variant="primary">LOG</b-button>
+              </b-form>
+            </b-card>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <!-- Log -->
+    <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover" v-show="this.switch"/>
   </div>
 </template>
 <script>
 import Vue from 'vue';
 import VueTypedJs from 'vue-typed-js';
+import { db, logInfo } from './firebase.js';
 Vue.use(VueTypedJs);
 export default {
   name: 'app',
   data: function(){
     return {
+      jobRetriveData: [],
       spiner: {
         govt: false,
         private: false,
         add: false
       },
+      user: this.getCookie('user'),
+      pass: this.getCookie('pass'),
+      switch: false
+    }
+  },
+  firestore(){
+    return {
+      jobRetriveData: db.collection('logInfo')
     }
   },
   methods: {
-    /******************** TODO SECTION START */
-    /******************** Need Optimisation */
     govtHover: function(value){
       if(value == true){
         this.spiner['govt'] = true;
@@ -63,8 +97,50 @@ export default {
       }else{
         this.spiner['add'] = true;
       }
+    },
+    setCookie: function(cookie_user, cookie_pass, exdays){
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+ d.toUTCString();
+      document.cookie = cookie_user + "=" + cookie_pass + ";" + expires + ";path=/";
+      return true;
+      this.setCookie('jobType', value , 365);
+    },
+    getCookie: function(cookie_name){
+      var name = cookie_name + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+          }
+      }
+      return "";
+    },
+    onSubmit() {
+      this.setCookie('user', this.user , 365);
+      this.setCookie('pass', this.pass , 365);
+      location.reload();
     }
-    /******************** TODO SECTION END */
+  },
+  watch: {
+    'jobRetriveData': function(){
+      if(this.jobRetriveData.length > 0){
+        for(var i = 0; i <= this.jobRetriveData.length; i++){
+          if(this.jobRetriveData[i]['user'] == this.user){
+            if(this.jobRetriveData[i]['pass'] == this.pass){
+              this.switch = true;
+            }
+          }else{
+            this.switch = false;
+          }
+        }
+      }
+    }
   }
 }
 </script>
@@ -151,6 +227,9 @@ h5 {
   border: 1px solid gray;
   border-radius: 10px;
   padding: 0 5px;
+}
+#logTitle{
+  margin-bottom: 10px;
 }
 /** List Design End */
 
