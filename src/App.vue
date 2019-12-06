@@ -27,15 +27,32 @@
               <b-form>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input id="inline-form-input-username" v-model="user" placeholder="USERNAME"></b-input>
+                    <b-input id="inline-form-input-username" v-model="user" placeholder="USERNAME" type="text" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input id="inline-form-input-username" v-model="pass" placeholder="PASSWORD" type="password"></b-input>
+                    <b-input id="inline-form-input-username" v-model="pass" placeholder="PASSWORD" type="password" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-button type="submit" @click="signIn()" block variant="primary">LOG</b-button>
+              </b-form>
+            </b-card>
+            <div id="newAccount" class="text-center" @click="signup=true">CREATE NEW ACCOUNT</div>
+            <b-card v-show="signup">
+              <div class="text-center" id="logTitle">SIGN UP</div>
+              <b-form>
+                <b-form-group>
+                  <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input id="inline-form-input-username" v-model="user" placeholder="USERNAME" type="text" required></b-input>
+                  </b-input-group>
+                </b-form-group>
+                <b-form-group>
+                  <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input id="inline-form-input-username" v-model="pass" placeholder="PASSWORD" type="password" required></b-input>
+                  </b-input-group>
+                </b-form-group>
+                <b-button type="submit" @click="signUp()" block variant="success">SIGN UP</b-button>
               </b-form>
             </b-card>
           </b-col>
@@ -63,7 +80,8 @@ export default {
       },
       user: this.getCookie('user'),
       pass: this.getCookie('pass'),
-      switch: false
+      switch: false,
+      signup: false
     }
   },
   firestore(){
@@ -229,7 +247,15 @@ h5 {
   padding: 0 5px;
 }
 #logTitle{
+  margin-top: -8px;
   margin-bottom: 10px;
+}
+#newAccount{
+  padding: 13px 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #007bff;
+  font-size: 14px;
 }
 /** List Design End */
 

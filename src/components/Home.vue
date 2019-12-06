@@ -2,8 +2,11 @@
   <div>
     <div class="lds-ring" v-if="loader"><span id="loaderText">Loading</span><div></div><div></div><div></div><div></div></div>
     <div v-if="dataLoadSignal" id="contentSection">
-      <div v-for="item in jobRetriveData" :key="item">
-        <b-container>
+      <b-container>
+        <b-card class="text-center">
+          ALL PUBLIC JOB INFORMATION
+        </b-card>
+        <div v-for="item in jobRetriveData" :key="item">
           <b-card v-if="item.privacy == 'public' || item.privacy == 'both'" id="card">
             <b-row>
               <b-col cols="8">
@@ -17,8 +20,8 @@
             <div id="jobDeadline">{{ item.deadline }}</div>
             <div id="jobLink"><a :href="item.link" target="_blank">Link</a></div>
           </b-card>
-        </b-container>
-      </div>
+        </div>
+      </b-container>
     </div>
   </div>
 </template>
