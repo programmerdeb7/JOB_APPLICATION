@@ -4,19 +4,20 @@
     <b-navbar id="navbar" fixed="top">
       <b-container>
         <b-navbar-brand href="#" id="navbarBrand" to="/">
-          APPLIED 
-          <vue-typed-js :strings="['<b>JOBS</b>']" :loop="true" :showCursor="false" id="navTypeJs">
+          JOB 
+          <vue-typed-js :strings="['<b>IN..</b>']" :loop="true" :showCursor="false" id="navTypeJs">
             <span class="typing"></span>
           </vue-typed-js>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto" id="navbarRight">
+          <b-nav-item to="add" id="govtLink"><b-spinner type="grow" label="Spinning" v-if="spiner['add']"></b-spinner>NEW</b-nav-item>
           <b-nav-item to="govt" id="govtLink"><b-spinner type="grow" label="Spinning" v-if="spiner['govt']"></b-spinner>GOVT</b-nav-item>
           <b-nav-item to="private" id="privateLink"><b-spinner type="grow" label="Spinning" v-if="spiner['private']"></b-spinner>PRIVATE</b-nav-item>
         </b-navbar-nav>
       </b-container> 
     </b-navbar>
     <!-- Navbar End -->
-    <router-view v-on:govt="govtHover" v-on:private="privateHover"/>
+    <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover"/>
   </div>
 </template>
 <script>
@@ -29,7 +30,8 @@ export default {
     return {
       spiner: {
         govt: false,
-        private: false
+        private: false,
+        add: false
       },
     }
   },
@@ -51,6 +53,15 @@ export default {
         this.spiner['private'] = false;
       }else{
         this.spiner['private'] = true;
+      }
+    },
+    addHover: function(value){
+      if(value == true){
+        this.spiner['add'] = true;
+      }else if(value == false){
+        this.spiner['add'] = false;
+      }else{
+        this.spiner['add'] = true;
       }
     }
     /******************** TODO SECTION END */
@@ -124,20 +135,22 @@ h5 {
 /** Navbar Design End */
 
 /** List Design Start */
+#contentSection{
+  margin-top: 96px;
+}
 #jobTitle{
   font-size: 18px;
 }
 #jobTitle, #jobCompany, #jobType, #jobDeadline{
   text-transform: capitalize;
 }
-#status{
-  width: 10px; 
-  height: 10px; 
-  border: 1px solid red; 
-  color: red;
-}
 #card{
-  margin-bottom: 10px;
+  margin: 14px 0;
+}
+#jobAuthor{
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 0 5px;
 }
 /** List Design End */
 

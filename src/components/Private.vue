@@ -1,18 +1,20 @@
 <template>
   <div>
     <div class="lds-ring" v-if="loader"><span id="loaderText">Loading</span><div></div><div></div><div></div><div></div></div>
-    <br><br><br><br>
-    <div v-if="dataLoadSignal">
-      <div v-for="item in jobRetriveData" :key="item" @mouseover="privateHover(true)" @mouseout="privateHover(false)">
-        <b-container>
-          <b-card v-if="item.type == 'private'" id="card">
+    <div v-if="dataLoadSignal" id="contentSection" @mouseover="privateHover(true)" @mouseout="privateHover(false)">
+      <b-container>
+        <b-card class="text-center">
+          YOUT PERSONAL PRIVATE JOB APPLICATION LIST
+        </b-card>
+        <div v-for="item in jobRetriveData" :key="item">
+          <b-card v-if="item.type == 'private' && (item.privacy == 'onlyme' || item.privacy == 'both')" id="card">
             <div id="jobTitle">{{ item.title }}</div>
             <div id="jobCompany">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
             <div id="jobDeadline">{{ item.deadline }}</div>
             <div id="jobLink"><a :href="item.link" target="_blank">Link</a></div>
           </b-card>
-        </b-container>
-      </div>
+        </div>
+      </b-container>
     </div>
   </div>
 </template>
