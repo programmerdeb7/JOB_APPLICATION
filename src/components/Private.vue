@@ -8,10 +8,10 @@
         </b-card>
         <div v-for="item in jobRetriveData" :key="item">
           <b-card v-if="item.type == 'private' && (item.privacy == 'onlyme' || item.privacy == 'both') && item.user == userInfo" id="card">
-            <div id="jobTitle">{{ item.title }}</div>
-            <div id="jobCompany">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
-            <div id="jobDeadline">{{ item.deadline }}</div>
-            <div id="jobLink"><a :href="item.link" target="_blank">Link</a></div>
+            <div id="jobTitle" title="Job Title">{{ item.title }}</div>
+            <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
+            <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
+            <div id="jobLink" title="Source Link"><a :href="item.link" target="_blank">Source Link</a></div>
           </b-card>
         </div>
       </b-container>

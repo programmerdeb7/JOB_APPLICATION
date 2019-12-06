@@ -12,15 +12,15 @@
               <b-card v-if="item.privacy == 'public' || item.privacy == 'both'" id="card">
                 <b-row>
                   <b-col cols="8">
-                    <div id="jobTitle">{{ item.title }}</div>
+                    <div id="jobTitle" title="Job Title">{{ item.title }}</div>
                   </b-col>
                   <b-col cols="4">
-                    <div class="text-right"><span id="jobAuthor">{{ item.user }}</span></div>
+                    <div class="text-right" title="Posted By"><span id="jobAuthor">{{ item.user }}</span></div>
                   </b-col>
                 </b-row>
-                <div id="jobCompany">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
-                <div id="jobDeadline">{{ item.deadline }}</div>
-                <div id="jobLink"><a :href="item.link" target="_blank">Link</a></div>
+                <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
+                <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
+                <div id="jobLink" title="Source Link"><a :href="item.link" target="_blank">Source Link</a></div>
               </b-card>
             </div>
           </b-col>

@@ -66,6 +66,9 @@
     <b-navbar fixed="bottom" id="footer">
       <b-container>
         <b-navbar-brand href="#" id="footerBrand" to="/">HOST @DEB</b-navbar-brand>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item id="footerLink" v-b-tooltip.hover title="deb.just.23@gmail.com">HOTLINK</b-nav-item>
+        </b-navbar-nav>
       </b-container> 
     </b-navbar>
     <!-- Footer -->
@@ -265,6 +268,11 @@ h5 {
 #card{
   margin: 14px 0;
 }
+#jobType{
+  border: 1px solid gray;
+  padding: 0 5px;
+  border-radius: 10px;
+}
 #jobAuthor{
   border: 1px solid gray;
   border-radius: 10px;
@@ -288,6 +296,10 @@ h5 {
 }
 #footer{
   background-color: #444;
+  height: 50px;
+}
+#footerLink a{
+  color: #fff;
 }
 /** List Design End */
 

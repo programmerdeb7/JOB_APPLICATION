@@ -42,7 +42,7 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-4" label="LINK:" label-for="input-4">
+            <b-form-group id="input-group-4" label="SOURCE LINK:" label-for="input-4">
               <b-form-input
                 id="input-4"
                 v-model="form.link"
