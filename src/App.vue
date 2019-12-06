@@ -27,12 +27,12 @@
               <b-form>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input id="inline-form-input-username" v-model="user" placeholder="USERNAME" type="text" required></b-input>
+                    <b-input v-model="user" placeholder="USERNAME" type="text" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input id="inline-form-input-username" v-model="pass" placeholder="PASSWORD" type="password" required></b-input>
+                    <b-input v-model="pass" placeholder="PASSWORD" type="password" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-button type="submit" @click="signIn()" block variant="primary">LOG</b-button>
@@ -44,12 +44,12 @@
               <b-form>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input id="inline-form-input-username" v-model="user" placeholder="USERNAME" type="text" required></b-input>
+                    <b-input v-model="username" placeholder="USERNAME" type="text" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input id="inline-form-input-username" v-model="pass" placeholder="PASSWORD" type="password" required></b-input>
+                    <b-input v-model="password" placeholder="PASSWORD" type="password" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-button type="submit" @click="signUp()" block variant="success">SIGN UP</b-button>
@@ -61,6 +61,14 @@
     </div>
     <!-- Log -->
     <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover" v-show="this.switch" :user="user"/>
+    <br><br>
+    <!-- Footer -->
+    <b-navbar fixed="bottom" id="footer">
+      <b-container>
+        <b-navbar-brand href="#" id="footerBrand" to="/">HOST @DEB</b-navbar-brand>
+      </b-container> 
+    </b-navbar>
+    <!-- Footer -->
   </div>
 </template>
 <script>
@@ -72,7 +80,7 @@ export default {
   name: 'app',
   data: function(){
     return {
-      jobRetriveData: [],
+      logData: [],
       spiner: {
         govt: false,
         private: false,
@@ -80,13 +88,15 @@ export default {
       },
       user: this.getCookie('user'),
       pass: this.getCookie('pass'),
+      username: '',
+      password: '',
       switch: false,
       signup: false
     }
   },
   firestore(){
     return {
-      jobRetriveData: db.collection('logInfo')
+      logData: db.collection('logInfo')
     }
   },
   methods: {
@@ -143,18 +153,32 @@ export default {
       this.setCookie('user', this.user , 365);
       this.setCookie('pass', this.pass , 365);
       location.reload();
+    },
+    signUp: function(){
+      logInfo.add({
+        user: (this.username).toLowerCase(),
+        pass: this.password
+      })
+      .then(function(docRef){
+        alert("Account create success! You can log in now.");
+      })
+      .catch(function(error){
+        alert("Faild!" + error);
+      });
+      this.signup= false;
     }
   },
   watch: {
-    'jobRetriveData': function(){
-      if(this.jobRetriveData.length > 0){
-        for(var i = 0; i <= this.jobRetriveData.length; i++){
-          if(this.jobRetriveData[i]['user'] == this.user){
-            if(this.jobRetriveData[i]['pass'] == this.pass){
+    'logData': function(){
+      if(this.logData.length > 0){
+        for(var i = 0; i <= this.logData.length; i++){
+          if(this.logData[i]['user'] == this.user){
+            if(this.logData[i]['pass'] == this.pass){
               this.switch = true;
+              console.log(this.logData[i]['user']);
             }
           }else{
-            this.switch = false;
+            console.log("Found nOT");
           }
         }
       }
@@ -256,6 +280,14 @@ h5 {
   font-weight: 600;
   color: #007bff;
   font-size: 14px;
+}
+#footerBrand{
+  font-size: 14px;
+  margin-left: 15px;
+  color: #fff;
+}
+#footer{
+  background-color: #444;
 }
 /** List Design End */
 
