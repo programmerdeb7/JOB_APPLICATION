@@ -5,7 +5,7 @@
       <b-container>
         <b-navbar-brand href="#" id="navbarBrand" to="/">
           JOB 
-          <vue-typed-js :strings="['<b>IN..</b>']" :loop="true" :showCursor="false" id="navTypeJs">
+          <vue-typed-js :strings="['<b>HUB</b>']" :loop="true" :showCursor="false" id="navTypeJs">
             <span class="typing"></span>
           </vue-typed-js>
         </b-navbar-brand>
