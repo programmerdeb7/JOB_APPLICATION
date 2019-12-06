@@ -10,21 +10,21 @@
             </b-card>
             <div v-for="item in jobRetriveData" :key="item">
               <b-card v-if="item.privacy == 'public' || item.privacy == 'both'" id="card">
+                <div id="jobTitle" title="Job Title">{{ item.title }}</div>
+                <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
+                <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
                 <b-row>
                   <b-col cols="8">
-                    <div id="jobTitle" title="Job Title">{{ item.title }}</div>
+                    <div id="jobLink" title="Source Link"><a :href="item.link" target="_blank">Source Link</a></div>
                   </b-col>
                   <b-col cols="4">
                     <div class="text-right" title="Posted By"><span id="jobAuthor">{{ item.user }}</span></div>
                   </b-col>
                 </b-row>
-                <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
-                <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
-                <div id="jobLink" title="Source Link"><a :href="item.link" target="_blank">Source Link</a></div>
               </b-card>
             </div>
           </b-col>
-          <b-col cols="4">
+          <b-col md="4" sm="12">
             <b-card class="text-center">
               USER LIST
             </b-card>
