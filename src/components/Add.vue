@@ -60,9 +60,9 @@
 
             <b-form-group label="PRIVACY">
               <b-form-radio-group required>
-                <b-form-radio v-model="form.collectionType" name="some-radios" value="govt">PUBLIC</b-form-radio>
-                <b-form-radio v-model="form.collectionType" name="some-radios" value="private">ONLY ME</b-form-radio>
-                <b-form-radio v-model="form.collectionType" name="some-radios" value="private">BOTH</b-form-radio>
+                <b-form-radio v-model="form.collectionType" name="some-radios" value="public">PUBLIC</b-form-radio>
+                <b-form-radio v-model="form.collectionType" name="some-radios" value="onlyme">ONLY ME</b-form-radio>
+                <b-form-radio v-model="form.collectionType" name="some-radios" value="both">BOTH</b-form-radio>
               </b-form-radio-group>
             </b-form-group>
 
@@ -87,6 +87,7 @@ import VueFlip from 'vue-flip';
 import VueCircle from 'vue2-circle-progress';
 
 export default {
+  props:['user'],
   components: {
     'vue-flip': VueFlip,
     VueCircle
@@ -102,7 +103,8 @@ export default {
         deadline: '',
         link: '',
         jobType: '',
-        collectionType: ''
+        collectionType: '',
+        user: this.user
       }
     }
   },
@@ -116,6 +118,7 @@ export default {
   },
   methods: {
     onSubmit(evt) {
+      evt.preventDefault();
       data.add({
         title: this.form.jobTitle,
         company: this.form.company,
@@ -124,6 +127,7 @@ export default {
         type: this.form.jobType,
         privacy: this.form.collectionType,
         createdAt: new Date(),
+        user: this.user
       })
       .then(function(docRef){
         console.log("Document written with ID:" + docRef.id);
@@ -135,6 +139,7 @@ export default {
       });
     },
     onReset(evt) {
+      evt.preventDefault();
       // Reset our form values
       this.form.jobTitle = '',
       this.form.company = '',

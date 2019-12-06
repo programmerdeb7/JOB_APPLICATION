@@ -4,13 +4,13 @@
     <div v-if="dataLoadSignal" id="contentSection">
       <div v-for="item in jobRetriveData" :key="item">
         <b-container>
-          <b-card v-if="item.privacy == 'public'" id="card">
+          <b-card v-if="item.privacy == 'public' || item.privacy == 'both'" id="card">
             <b-row>
               <b-col cols="8">
                 <div id="jobTitle">{{ item.title }}</div>
               </b-col>
               <b-col cols="4" class="text-right">
-                <div ><span id="jobAuthor">{{ item.postedby }}</span></div>
+                <div ><span id="jobAuthor">{{ item.user }}</span></div>
               </b-col>
             </b-row>
             <div id="jobCompany">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>

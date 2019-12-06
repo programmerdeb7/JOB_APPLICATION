@@ -24,7 +24,7 @@
           <b-col offset-md="3" md="6" sm="12">
             <b-card>
               <div class="text-center" id="logTitle">LOG IN</div>
-              <b-form @submit="onSubmit">
+              <b-form>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
                     <b-input id="inline-form-input-username" v-model="user" placeholder="USERNAME"></b-input>
@@ -35,7 +35,7 @@
                     <b-input id="inline-form-input-username" v-model="pass" placeholder="PASSWORD" type="password"></b-input>
                   </b-input-group>
                 </b-form-group>
-                <b-button type="submit" block variant="primary">LOG</b-button>
+                <b-button type="submit" @click="signIn()" block variant="primary">LOG</b-button>
               </b-form>
             </b-card>
           </b-col>
@@ -43,7 +43,7 @@
       </b-container>
     </div>
     <!-- Log -->
-    <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover" v-show="this.switch"/>
+    <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover" v-show="this.switch" :user="user"/>
   </div>
 </template>
 <script>
@@ -121,7 +121,7 @@ export default {
       }
       return "";
     },
-    onSubmit() {
+    signIn: function() {
       this.setCookie('user', this.user , 365);
       this.setCookie('pass', this.pass , 365);
       location.reload();

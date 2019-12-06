@@ -7,7 +7,7 @@
           YOUT PERSONAL PRIVATE JOB APPLICATION LIST
         </b-card>
         <div v-for="item in jobRetriveData" :key="item">
-          <b-card v-if="item.type == 'private' && (item.privacy == 'onlyme' || item.privacy == 'both')" id="card">
+          <b-card v-if="item.type == 'private' && (item.privacy == 'onlyme' || item.privacy == 'both') && item.user == userInfo" id="card">
             <div id="jobTitle">{{ item.title }}</div>
             <div id="jobCompany">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
             <div id="jobDeadline">{{ item.deadline }}</div>
@@ -22,11 +22,13 @@
 <script>
 import { db } from '../firebase.js';
 export default {
+  props:['user'],
   data() {
     return {
       jobRetriveData: [],
       loader: true,
-      dataLoadSignal: false
+      dataLoadSignal: false,
+      userInfo: this.user
     }
   },
   firestore(){
