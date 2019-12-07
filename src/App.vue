@@ -167,7 +167,7 @@ export default {
     },
     signUp: function(){
       logInfo.add({
-        emil: this.email,
+        email: this.email,
         user: (this.username).toLowerCase(),
         pass: this.password
       })
@@ -200,10 +200,11 @@ export default {
             if(this.logData[i]['pass'] == this.pass){
               this.user = this.logData[i]['user']
               this.permission = true;
-              console.log(this.logData[i]['email']);
+              // console.log(this.logData[i]['email']);
             }
           }else{
             console.log("Not Found!");
+            // console.log(this.logData[i]['email']);
           }
         }
       }
