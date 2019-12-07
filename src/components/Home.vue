@@ -5,7 +5,7 @@
       <b-container>
         <b-row>
           <b-col md="8" sm="12">
-            <b-card class="text-center">
+            <b-card class="text-center title-card">
               ALL PUBLIC JOB INFORMATION
             </b-card>
             <div v-for="item in jobRetriveData" :key="item">
@@ -14,10 +14,10 @@
                 <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
                 <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
                 <b-row>
-                  <b-col cols="8">
+                  <b-col cols="6">
                     <div id="jobLink" title="Source Link"><a :href="item.link" target="_blank">Source Link</a></div>
                   </b-col>
-                  <b-col cols="4">
+                  <b-col cols="6">
                     <div class="text-right" title="Posted By"><span id="jobAuthor">{{ item.user }}</span></div>
                   </b-col>
                 </b-row>
@@ -25,12 +25,12 @@
             </div>
           </b-col>
           <b-col md="4" sm="12">
-            <b-card class="text-center">
+            <b-card class="text-center title-card">
               USER LIST
             </b-card>
             <div>
               <b-card id="card">
-                <div id="userlist" v-for="item in logData" :key="item"><span id="userlistData">{{ item.user }} <span v-if="item.user == user">(YOU)</span></span></div>
+                <div id="userlist" v-for="item in logData" :key="item"><span id="userlistData">{{ item.user }} <span v-if="item.email == email">(YOU)</span></span></div>
               </b-card>
             </div>
           </b-col>
@@ -43,7 +43,7 @@
 <script>
 import { db } from '../firebase.js';
 export default {
-  props:['user'],
+  props:['email'],
   data() {
     return {
       jobRetriveData: [],
@@ -77,7 +77,7 @@ export default {
 }
 #userlistData{
   text-transform: lowercase;
-  border: 1px solid gray;
+  border: 1px solid #fff;
   padding: 0 5px;
   border-radius: 10px;
 }

@@ -4,7 +4,7 @@
     <div class="lds-ring" v-if="loader"><span id="loaderText">Loading</span><div></div><div></div><div></div><div></div></div>
     <div v-if="dataLoadSignal" id="contentSection" @mouseover="addHover(true)" @mouseout="addHover(false)">
       <b-container>
-        <b-card class="text-center">
+        <b-card class="text-center title-card">
           COLLECT YOUR JOB INFORMATION OR SHARE IT
         </b-card>
         <b-card id="card">
@@ -68,7 +68,7 @@
 
             <b-row>
               <b-col cols="6">
-                <b-button type="submit" variant="primary">UPLOAD</b-button>
+                <b-button type="submit" variant="primary" id="uploadButton">UPLOAD</b-button>
               </b-col>
               <b-col cols="6" class="text-right">
                 <b-button type="reset" variant="danger">RESET</b-button>
@@ -87,7 +87,7 @@ import VueFlip from 'vue-flip';
 import VueCircle from 'vue2-circle-progress';
 
 export default {
-  props:['user'],
+  props:['email', 'user'],
   components: {
     'vue-flip': VueFlip,
     VueCircle
@@ -104,6 +104,7 @@ export default {
         link: '',
         jobType: '',
         collectionType: '',
+        email: this.email,
         user: this.user
       }
     }
@@ -127,6 +128,7 @@ export default {
         type: this.form.jobType,
         privacy: this.form.collectionType,
         createdAt: new Date(),
+        email: this.email,
         user: this.user
       })
       .then(function(docRef){
@@ -146,7 +148,8 @@ export default {
       this.form.deadline = '',
       this.form.link = '',
       this.form.jobType = '',
-      this.form.collectionType = ''
+      this.form.collectionType = '',
+      this.form.user = ''
     },
     addHover: function(value){
       if(value == true){
@@ -166,5 +169,19 @@ export default {
 }
 </script>
 <style scoped>
-
+#uploadButton{
+  background-color: #0E2F44;
+  border-color: #0E2F44;
+}
+#card{
+  color: #0E2F44;
+  border: 1px solid #0E2F44;
+}
+.title-card{
+  background-color: #0E2F44;
+  color: #fff;
+}
+.form-control{
+  border-color:  #0E2F44;
+}
 </style>

@@ -4,21 +4,19 @@
     <b-navbar id="navbar" fixed="top">
       <b-container>
         <b-navbar-brand href="#" id="navbarBrand" to="/">
-          JOB 
-          <vue-typed-js :strings="['<b>HUB</b>']" :loop="true" :showCursor="false" id="navTypeJs">
-            <span class="typing"></span>
-          </vue-typed-js>
+          JOB <b>LAB</b>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto" id="navbarRight">
-          <b-nav-item to="add" id="govtLink"><b-spinner type="grow" label="Spinning" v-if="spiner['add']"></b-spinner>NEW</b-nav-item>
+          <b-nav-item to="add" id="newLink"><b-spinner type="grow" label="Spinning" v-if="spiner['add']"></b-spinner>NEW</b-nav-item>
           <b-nav-item to="govt" id="govtLink"><b-spinner type="grow" label="Spinning" v-if="spiner['govt']"></b-spinner>GOVT</b-nav-item>
           <b-nav-item to="private" id="privateLink"><b-spinner type="grow" label="Spinning" v-if="spiner['private']"></b-spinner>PRIVATE</b-nav-item>
+          <b-nav-item id="user" v-show="permission" @mouseover="changeUser()" @mouseout="changeUser()"><span v-show="showUser">{{ user }}</span><span v-show="!showUser" @click="logout()">LOG OUT</span></b-nav-item>
         </b-navbar-nav>
       </b-container> 
     </b-navbar>
     <!-- Navbar End -->
     <!-- Log -->
-    <div id="contentSection" v-show="!this.switch">
+    <div id="contentSection" v-show="!this.permission">
       <b-container>
         <b-row>
           <b-col offset-md="3" md="6" sm="12">
@@ -27,7 +25,7 @@
               <b-form>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input v-model="user" placeholder="USERNAME" type="text" required></b-input>
+                    <b-input v-model="email" placeholder="EMAIL" type="email" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-form-group>
@@ -36,6 +34,9 @@
                   </b-input-group>
                 </b-form-group>
                 <b-button type="submit" @click="signIn()" block variant="primary">LOG</b-button>
+                <div id="remember">
+                  <b-form-checkbox checked="true" disabled size="sm">REMEMBER</b-form-checkbox>
+                </div>
               </b-form>
             </b-card>
             <div id="newAccount" class="text-center" @click="signup=true">CREATE NEW ACCOUNT</div>
@@ -44,7 +45,12 @@
               <b-form>
                 <b-form-group>
                   <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input v-model="username" placeholder="USERNAME" type="text" required></b-input>
+                    <b-input v-model="email" placeholder="EMAIL" type="email" required></b-input>
+                  </b-input-group>
+                </b-form-group>
+                <b-form-group>
+                  <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input v-model="username" placeholder="NICK NAME" type="text" required></b-input>
                   </b-input-group>
                 </b-form-group>
                 <b-form-group>
@@ -60,7 +66,7 @@
       </b-container>
     </div>
     <!-- Log -->
-    <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover" v-show="this.switch" :user="user"/>
+    <router-view v-on:govt="govtHover" v-on:private="privateHover" v-on:add="addHover" v-show="this.permission" :email="email" :user="user"/>
     <br><br>
     <!-- Footer -->
     <b-navbar fixed="bottom" id="footer">
@@ -89,12 +95,14 @@ export default {
         private: false,
         add: false
       },
-      user: this.getCookie('user'),
+      email: this.getCookie('email'),
+      user: '',
       pass: this.getCookie('pass'),
       username: '',
       password: '',
-      switch: false,
-      signup: false
+      permission: false,
+      signup: false,
+      showUser: true
     }
   },
   firestore(){
@@ -153,12 +161,13 @@ export default {
       return "";
     },
     signIn: function() {
-      this.setCookie('user', this.user , 365);
+      this.setCookie('email', this.email , 365);
       this.setCookie('pass', this.pass , 365);
       location.reload();
     },
     signUp: function(){
       logInfo.add({
+        emil: this.email,
         user: (this.username).toLowerCase(),
         pass: this.password
       })
@@ -169,19 +178,32 @@ export default {
         alert("Faild!" + error);
       });
       this.signup= false;
+    },
+    changeUser: function(){
+      if(this.showUser == true){
+        this.showUser = false;
+      }else{
+        this.showUser = true;
+      }
+    },
+    logout: function(){
+      this.setCookie('email', '' , 365);
+      this.setCookie('pass', '' , 365);
+      location.reload();
     }
   },
   watch: {
     'logData': function(){
       if(this.logData.length > 0){
         for(var i = 0; i <= this.logData.length; i++){
-          if(this.logData[i]['user'] == this.user){
+          if(this.logData[i]['email'] == this.email){
             if(this.logData[i]['pass'] == this.pass){
-              this.switch = true;
-              console.log(this.logData[i]['user']);
+              this.user = this.logData[i]['user']
+              this.permission = true;
+              console.log(this.logData[i]['email']);
             }
           }else{
-            console.log("Found nOT");
+            console.log("Not Found!");
           }
         }
       }
@@ -222,8 +244,7 @@ h5 {
 
 /** Navbar Design Start */
 #navbar{
-  background-color: #fff;
-  padding: 20px 15px;
+  background-color: #8A2BE2;
   border-bottom: 1px solid #d2d2d2;
 }
 
@@ -231,6 +252,7 @@ h5 {
   text-transform: capitalize;
   font-size: 1rem;
   margin-left: 20px;
+  color: #fff;
 }
 #navbarBrand #navTypeJs{
   display: inline-block;
@@ -239,13 +261,25 @@ h5 {
 #navbar #navbarRight{
   margin-right: 20px;
 }
-#navbarRight #govtLink, #expLink, #portfolioLink, #privateLink, #aboutLink{
+#navbarRight #govtLink, #privateLink, #newLink{
   position: relative;
   margin-left: 15px;
   display: inline-block;
   font-size: 1rem;
   line-height: inherit;
   white-space: nowrap;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+#user{
+  text-transform: uppercase;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+#user a{
+  color: #fff !important;
 }
 /** Spiner Custom */
 .spinner-grow {
@@ -256,9 +290,6 @@ h5 {
 /** Navbar Design End */
 
 /** List Design Start */
-#contentSection{
-  margin-top: 96px;
-}
 #jobTitle{
   font-size: 18px;
 }
@@ -267,16 +298,27 @@ h5 {
 }
 #card{
   margin: 14px 0;
+  background-color: #fff;
+  color: #FF4040;
+  border: 1px solid #FF4040;
+}
+#card a{
+  color: #FF4040;
+  text-decoration: underline;
 }
 #jobType{
-  border: 1px solid gray;
+  border: 1px solid #FF4040;
   padding: 0 5px;
   border-radius: 10px;
+  background-color: #FF4040;
+  color: #fff;
 }
 #jobAuthor{
-  border: 1px solid gray;
+  border: 1px solid #FF4040;
   border-radius: 10px;
   padding: 0 5px;
+  background-color: #FF4040;
+  color: #fff;
 }
 #logTitle{
   margin-top: -8px;
@@ -296,22 +338,40 @@ h5 {
 }
 #footer{
   background-color: #444;
-  height: 50px;
+  height: 40px;
 }
 #footerLink a{
   color: #fff;
+}
+.title-card{
+  background-color: #FF4040;
+  color: #fff;
+}
+#remember{
+  margin-top: 10px;
+  font-size: 12px;
 }
 /** List Design End */
 
 /** App Media Only */
 @media (min-width: 1200px){
-
-  
+  #navbar{
+    padding: 20px 15px;
+  }
+  #contentSection{
+    margin-top: 96px;
+  }
 }
 @media screen and (max-width: 991px) {
   /** Navbar */
   #navbar #navbarRight{
     margin-right: 0;
+  }
+  #navbar{
+    padding: 5px 15px;
+  }
+  #contentSection{
+    margin-top: 66px;
   }
 }
 @media screen and (max-width: 767px) {
@@ -319,10 +379,26 @@ h5 {
   #navbar #navbarBrand{
     margin-left: 0;
   }
+  #navbar{
+    padding: 5px 15px;
+  }
+  #contentSection{
+    margin-top: 66px;
+  }
+  #user{
+    display: none;
+  }
 }
 @media screen and (max-width: 479px) {
-
-  
+  #navbar{
+    padding: 5px 15px;
+  }
+  #contentSection{
+    margin-top: 66px;
+  }
+  #user{
+    display: none;
+  }
 }
 /** App Media End */
 

@@ -3,11 +3,11 @@
     <div class="lds-ring" v-if="loader"><span id="loaderText">Loading</span><div></div><div></div><div></div><div></div></div>
     <div v-if="dataLoadSignal" id="contentSection" @mouseover="govtHover(true)" @mouseout="govtHover(false)">
       <b-container>
-        <b-card class="text-center">
+        <b-card class="text-center title-card">
           YOUT PERSONAL GOVT JOB APPLICATION LIST
         </b-card>
         <div v-for="item in jobRetriveData" :key="item">
-          <b-card v-if="item.type == 'govt' && (item.privacy == 'onlyme' || item.privacy == 'both') && item.user == userInfo" id="card">
+          <b-card v-if="item.type == 'govt' && (item.privacy == 'onlyme' || item.privacy == 'both') && item.email == userInfo" id="card">
             <div id="jobTitle" title="Job Title">{{ item.title }}</div>
             <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
             <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
@@ -22,13 +22,13 @@
 <script>
 import { db } from '../firebase.js';
 export default {
-  props:['user'],
+  props:['email'],
   data() {
     return {
       jobRetriveData: [],
       loader: true,
       dataLoadSignal: false,
-      userInfo: this.user
+      userInfo: this.email
     }
   },
   firestore(){
@@ -57,5 +57,20 @@ export default {
 }
 </script>
 <style scoped>
-
+#card{
+  color: #065535;
+  border: 1px solid #065535;
+}
+#card a{
+  color: #065535;
+}
+.title-card{
+  background-color: #065535;
+  color: #fff;
+}
+#jobType{
+  background-color: #065535;
+  color: #fff;
+  border-color: #065535;
+}
 </style>
