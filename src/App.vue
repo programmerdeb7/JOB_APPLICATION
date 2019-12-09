@@ -11,6 +11,13 @@
           <b-nav-item to="govt" id="govtLink"><b-spinner type="grow" label="Spinning" v-if="spiner['govt']"></b-spinner>GOVT</b-nav-item>
           <b-nav-item to="private" id="privateLink"><b-spinner type="grow" label="Spinning" v-if="spiner['private']"></b-spinner>PRIVATE</b-nav-item>
           <b-nav-item id="user" v-show="permission" @mouseover="changeUser()" @mouseout="changeUser()"><span v-show="showUser">{{ user }}</span><span v-show="!showUser" @click="logout()">LOG OUT</span></b-nav-item>
+          <b-nav-item-dropdown right id="userMenu">
+            <!-- Using 'button-content' slot -->
+            <template v-slot:button-content id="user">
+            </template>
+            <b-dropdown-item id="userDropdown">{{ user }}</b-dropdown-item>
+            <b-dropdown-item @click="logout()">LOG OUT</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-container> 
     </b-navbar>
@@ -279,6 +286,9 @@ h5 {
   border-radius: 5px;
   margin-left: 20px;
 }
+#userDropdown{
+  text-transform: uppercase;
+}
 /** Spiner Custom */
 .spinner-grow {
   position: absolute;
@@ -354,6 +364,9 @@ h5 {
   #contentSection{
     margin-top: 96px;
   }
+  #userMenu{
+    display: none;
+  }
 }
 @media screen and (max-width: 991px) {
   /** Navbar */
@@ -365,6 +378,9 @@ h5 {
   }
   #contentSection{
     margin-top: 66px;
+  }
+  #userMenu{
+    display: none;
   }
 }
 @media screen and (max-width: 767px) {
@@ -381,6 +397,9 @@ h5 {
   #user{
     display: none;
   }
+  #userMenu{
+    display: block;
+  }
 }
 @media screen and (max-width: 479px) {
   #navbar{
@@ -391,6 +410,9 @@ h5 {
   }
   #user{
     display: none;
+  }
+  #userMenu{
+    display: block;
   }
 }
 /** App Media End */
