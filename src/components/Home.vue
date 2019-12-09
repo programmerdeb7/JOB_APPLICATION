@@ -81,4 +81,24 @@ export default {
   padding: 0 5px;
   border-radius: 10px;
 }
+.title-card{
+  background: linear-gradient(to right, #8A2BE2 -1%, springgreen 100%);
+  color: #fff;
+  border: 0px;
+}
+#card{
+  color: #8A2BE2;
+  border: 1px solid #8A2BE2;
+}
+#card a{
+  color: #8A2BE2;
+}
+#jobType{
+  background-color: #fff;
+  color: #8A2BE2;
+  border: 1px solid #8A2BE2;
+}
+#jobAuthor{
+  border: 1px solid #8A2BE2;
+}
 </style>

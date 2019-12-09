@@ -33,7 +33,7 @@
                     <b-input v-model="pass" placeholder="PASSWORD" type="password" required></b-input>
                   </b-input-group>
                 </b-form-group>
-                <b-button type="submit" @click="signIn()" block variant="primary">LOG</b-button>
+                <b-button type="submit" @click="signIn()" block variant="primary" id="loginbtn">LOG</b-button>
                 <div id="remember">
                   <b-form-checkbox checked="true" disabled size="sm">REMEMBER</b-form-checkbox>
                 </div>
@@ -58,7 +58,7 @@
                     <b-input v-model="password" placeholder="PASSWORD" type="password" required></b-input>
                   </b-input-group>
                 </b-form-group>
-                <b-button type="submit" @click="signUp()" block variant="success">SIGN UP</b-button>
+                <b-button type="submit" @click="signUp()" block variant="success" id="signupbtn">SIGN UP</b-button>
               </b-form>
             </b-card>
           </b-col>
@@ -270,17 +270,14 @@ h5 {
   line-height: inherit;
   white-space: nowrap;
 }
-.navbar-light .navbar-nav .nav-link {
-  color: #fff;
+.navbar-light .navbar-nav .nav-link{
+  color: #fff !important
 }
 #user{
   text-transform: uppercase;
   border: 1px solid #fff;
   border-radius: 5px;
   margin-left: 20px;
-}
-#user a{
-  color: #fff !important;
 }
 /** Spiner Custom */
 .spinner-grow {
@@ -300,26 +297,17 @@ h5 {
 #card{
   margin: 14px 0;
   background-color: #fff;
-  color: #FF4040;
-  border: 1px solid #FF4040;
 }
 #card a{
-  color: #FF4040;
   text-decoration: underline;
 }
 #jobType{
-  border: 1px solid #FF4040;
   padding: 0 5px;
   border-radius: 10px;
-  background-color: #FF4040;
-  color: #fff;
 }
 #jobAuthor{
-  border: 1px solid #FF4040;
   border-radius: 10px;
   padding: 0 5px;
-  background-color: #FF4040;
-  color: #fff;
 }
 #logTitle{
   margin-top: -8px;
@@ -344,13 +332,17 @@ h5 {
 #footerLink a{
   color: #fff;
 }
-.title-card{
-  background-color: #FF4040;
-  color: #fff;
-}
 #remember{
   margin-top: 10px;
   font-size: 12px;
+}
+#loginbtn{
+  background: linear-gradient(to right, #8A2BE2 -1%, springgreen 100%);
+  border: 0;
+}
+#signupbtn{
+  background: linear-gradient(to right, red -1%, springgreen 100%);
+  border: 0;
 }
 /** List Design End */
 

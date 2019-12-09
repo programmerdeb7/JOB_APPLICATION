@@ -3,17 +3,21 @@
     <div class="lds-ring" v-if="loader"><span id="loaderText">Loading</span><div></div><div></div><div></div><div></div></div>
     <div v-if="dataLoadSignal" id="contentSection" @mouseover="privateHover(true)" @mouseout="privateHover(false)">
       <b-container>
-        <b-card class="text-center title-card">
-          YOUT PERSONAL PRIVATE JOB APPLICATION LIST
-        </b-card>
-        <div v-for="item in jobRetriveData" :key="item">
-          <b-card v-if="item.type == 'private' && (item.privacy == 'onlyme' || item.privacy == 'both') && item.email == userInfo" id="card">
-            <div id="jobTitle" title="Job Title">{{ item.title }}</div>
-            <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
-            <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
-            <div id="jobLink" title="Source Link"><a :href="item.link" target="_blank">Source Link</a></div>
-          </b-card>
-        </div>
+        <b-row>
+          <b-col offset-md="1" md="10" lg="10" sm="12">
+            <b-card class="text-center title-card">
+              YOUT PERSONAL PRIVATE JOB APPLICATION LIST
+            </b-card>
+            <div v-for="item in jobRetriveData" :key="item">
+              <b-card v-if="item.type == 'private' && (item.privacy == 'onlyme' || item.privacy == 'both') && item.email == userInfo" id="card">
+                <div id="jobTitle" title="Job Title">{{ item.title }}</div>
+                <div id="jobCompany" title="Company Name">{{ item.company }} - <span id="jobType">{{ item.type }}</span></div>
+                <div id="jobDeadline" title="Application Deadline">{{ item.deadline }}</div>
+                <div id="jobLink" title="Source Link"><a :href="item.link" target="_blank">Source Link</a></div>
+              </b-card>
+            </div>
+          </b-col>
+        </b-row>
       </b-container>
     </div>
   </div>
@@ -65,8 +69,9 @@ export default {
   color: #008080;
 }
 .title-card{
-  background-color: #008080;
+  background: linear-gradient(to right, #FF4040 -1%, #008080 100%);
   color: #fff;
+  border: 0;
 }
 #jobType{
   background-color: #008080;

@@ -4,78 +4,82 @@
     <div class="lds-ring" v-if="loader"><span id="loaderText">Loading</span><div></div><div></div><div></div><div></div></div>
     <div v-if="dataLoadSignal" id="contentSection" @mouseover="addHover(true)" @mouseout="addHover(false)">
       <b-container>
-        <b-card class="text-center title-card">
-          COLLECT YOUR JOB INFORMATION OR SHARE IT
-        </b-card>
-        <b-card id="card">
-          <b-form @submit="onSubmit" @reset="onReset">
-            <b-form-group
-              id="input-group-1"
-              label="JOB TITLE:"
-              label-for="input-1"
-              description=""
-            >
-              <b-form-input
-                id="input-1"
-                v-model="form.jobTitle"
-                type="text"
-                required
-                placeholder=""
-              ></b-form-input>
-            </b-form-group>
+        <b-row>
+          <b-col offset-md="1" md="10" lg="10" sm="12">
+              <b-card class="text-center title-card">
+            COLLECT YOUR JOB INFORMATION OR SHARE IT
+          </b-card>
+          <b-card id="card">
+            <b-form @submit="onSubmit" @reset="onReset">
+              <b-form-group
+                id="input-group-1"
+                label="JOB TITLE:"
+                label-for="input-1"
+                description=""
+              >
+                <b-form-input
+                  id="input-1"
+                  v-model="form.jobTitle"
+                  type="text"
+                  required
+                  placeholder=""
+                ></b-form-input>
+              </b-form-group>
 
-            <b-form-group id="input-group-2" label="COMPANY NAME:" label-for="input-2">
-              <b-form-input
-                id="input-2"
-                v-model="form.company"
-                required
-                placeholder=""
-              ></b-form-input>
-            </b-form-group>
+              <b-form-group id="input-group-2" label="COMPANY NAME:" label-for="input-2">
+                <b-form-input
+                  id="input-2"
+                  v-model="form.company"
+                  required
+                  placeholder=""
+                ></b-form-input>
+              </b-form-group>
 
-            <b-form-group id="input-group-3" label="DEADLINE:" label-for="input-3">
-              <b-form-input
-                id="input-3"
-                v-model="form.deadline"
-                required
-                placeholder=""
-              ></b-form-input>
-            </b-form-group>
+              <b-form-group id="input-group-3" label="DEADLINE:" label-for="input-3">
+                <b-form-input
+                  id="input-3"
+                  v-model="form.deadline"
+                  required
+                  placeholder=""
+                ></b-form-input>
+              </b-form-group>
 
-            <b-form-group id="input-group-4" label="SOURCE LINK:" label-for="input-4">
-              <b-form-input
-                id="input-4"
-                v-model="form.link"
-                required
-                placeholder=""
-              ></b-form-input>
-            </b-form-group>
+              <b-form-group id="input-group-4" label="SOURCE LINK:" label-for="input-4">
+                <b-form-input
+                  id="input-4"
+                  v-model="form.link"
+                  required
+                  placeholder=""
+                ></b-form-input>
+              </b-form-group>
 
-            <b-form-group label="JOB TYPE">
-              <b-form-radio-group required>
-                <b-form-radio v-model="form.jobType" name="some-radios" value="govt">GOVT</b-form-radio>
-                <b-form-radio v-model="form.jobType" name="some-radios" value="private">PRIVATE</b-form-radio>
-              </b-form-radio-group>
-            </b-form-group>
+              <b-form-group label="JOB TYPE">
+                <b-form-radio-group required>
+                  <b-form-radio v-model="form.jobType" name="some-radios" value="govt">GOVT</b-form-radio>
+                  <b-form-radio v-model="form.jobType" name="some-radios" value="private">PRIVATE</b-form-radio>
+                </b-form-radio-group>
+              </b-form-group>
 
-            <b-form-group label="PRIVACY">
-              <b-form-radio-group required>
-                <b-form-radio v-model="form.collectionType" name="some-radios" value="public">PUBLIC</b-form-radio>
-                <b-form-radio v-model="form.collectionType" name="some-radios" value="onlyme">ONLY ME</b-form-radio>
-                <b-form-radio v-model="form.collectionType" name="some-radios" value="both">BOTH</b-form-radio>
-              </b-form-radio-group>
-            </b-form-group>
+              <b-form-group label="PRIVACY">
+                <b-form-radio-group required>
+                  <b-form-radio v-model="form.collectionType" name="some-radios" value="public">PUBLIC</b-form-radio>
+                  <b-form-radio v-model="form.collectionType" name="some-radios" value="onlyme">ONLY ME</b-form-radio>
+                  <b-form-radio v-model="form.collectionType" name="some-radios" value="both">BOTH</b-form-radio>
+                </b-form-radio-group>
+              </b-form-group>
 
-            <b-row>
-              <b-col cols="6">
-                <b-button type="submit" variant="primary" id="uploadButton">UPLOAD</b-button>
-              </b-col>
-              <b-col cols="6" class="text-right">
-                <b-button type="reset" variant="danger">RESET</b-button>
-              </b-col>
-            </b-row>
-          </b-form>
-        </b-card>
+              <b-row>
+                <b-col cols="6">
+                  <b-button type="submit" variant="primary" id="uploadButton">UPLOAD</b-button>
+                </b-col>
+                <b-col cols="6" class="text-right">
+                  <b-button type="reset" variant="danger">RESET</b-button>
+                </b-col>
+              </b-row>
+            </b-form>
+          </b-card>
+          </b-col>
+        </b-row>
       </b-container>
     </div>
   </div>
@@ -178,8 +182,9 @@ export default {
   border: 1px solid #0E2F44;
 }
 .title-card{
-  background-color: #0E2F44;
+  background: linear-gradient(to right, #FF00FF -1%, #008080 100%);
   color: #fff;
+  border: 0;
 }
 .form-control{
   border-color:  #0E2F44;
