@@ -7,7 +7,8 @@
           JOB <b>LAB</b>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto" id="navbarRight">
-          <b-nav-item to="add" id="newLink"><b-spinner type="grow" label="Spinning" v-if="spiner['add']"></b-spinner>NEW</b-nav-item>
+          <b-nav-item to="add" id="newLinkMd"><b-spinner type="grow" label="Spinning" v-if="spiner['add']"></b-spinner>NEW</b-nav-item>
+          <b-nav-item to="add" id="newLink"><b-spinner type="grow" label="Spinning" v-if="spiner['add']"></b-spinner><b id="newLinkText">+</b></b-nav-item>
           <b-nav-item to="govt" id="govtLink"><b-spinner type="grow" label="Spinning" v-if="spiner['govt']"></b-spinner>GOVT</b-nav-item>
           <b-nav-item to="private" id="privateLink"><b-spinner type="grow" label="Spinning" v-if="spiner['private']"></b-spinner>PRIVATE</b-nav-item>
           <b-nav-item id="user" v-show="permission" @mouseover="changeUser()" @mouseout="changeUser()"><span v-show="showUser">{{ user }}</span><span v-show="!showUser" @click="logout()">LOG OUT</span></b-nav-item>
@@ -277,6 +278,18 @@ h5 {
   line-height: inherit;
   white-space: nowrap;
 }
+#newLink{
+  border: 1px solid #fff;
+  border-radius: 50%;
+  width: 31px;
+  height: 31px;
+  margin-top: 5px;
+}
+#newLinkText{
+  margin-top: -5px;
+  padding-left: 2px;
+  position: absolute;
+}
 .navbar-light .navbar-nav .nav-link{
   color: #fff !important
 }
@@ -367,6 +380,12 @@ h5 {
   #userMenu{
     display: none;
   }
+  #newLinkMd{
+    display: block;
+  }
+  #newLink{
+    display: none;
+  }
 }
 @media screen and (max-width: 991px) {
   /** Navbar */
@@ -380,6 +399,12 @@ h5 {
     margin-top: 66px;
   }
   #userMenu{
+    display: none;
+  }
+  #newLinkMd{
+    display: block;
+  }
+  #newLink{
     display: none;
   }
 }
@@ -400,6 +425,12 @@ h5 {
   #userMenu{
     display: block;
   }
+  #newLinkMd{
+    display: none;
+  }
+  #newLink{
+    display: block;
+  }
 }
 @media screen and (max-width: 479px) {
   #navbar{
@@ -412,6 +443,12 @@ h5 {
     display: none;
   }
   #userMenu{
+    display: block;
+  }
+  #newLinkMd{
+    display: none;
+  }
+  #newLink{
     display: block;
   }
 }
